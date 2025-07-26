@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ReframeUrban™ - The Standard for Smarter Infill Development</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-green: #2C5530;
+            --sage-green: #7A8471;
+            --warm-beige: #F5F3F0;
+            --stone-gray: #8B8680;
+            --charcoal: #2A2A2A;
+            --cream-white: #FEFDFB;
+            --accent-terracotta: #A67B5B;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-weight: 300;
+            line-height: 1.6;
+            color: var(--charcoal);
+            background-color: var(--cream-white);
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        .nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(254, 253, 251, 0.95);
+            backdrop-filter: blur(20px);
+            z-index: 1000;
+            padding: 1rem 0;
+            transition: all 0.3s ease;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 500;
+            color: var(--primary-green);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: var(--charcoal);
+            text-decoration: none;
+            font-weight: 300;
+            font-size: 0.95rem;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-green);
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            background: linear-gradient(135deg, var(--warm-beige) 0%, var(--cream-white) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 40%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent 0%, rgba(44, 85, 48, 0.03) 100%);
+            z-index: 1;
+        }
+
+        .hero-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            z-index: 2;
+            position: relative;
+        }
+
+        .hero-content {
+            max-width: 600px;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 200;
+            color: var(--primary-green);
+            margin-bottom: 1rem;
+            line-height: 1.1;
+        }
+
+        .hero-subtitle {
+            font-size: 1.5rem;
+            font-weight: 300;
+            color: var(--sage-green);
+            margin-bottom: 2rem;
+        }
+
+        .hero-description {
+            font-size: 1.1rem;
+            color: var(--stone-gray);
+            margin-bottom: 3rem;
+            max-width: 500px;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: var(--primary-green);
+            color: white;
+            padding: 1rem 2.5rem;
+            text-decoration: none;
+            border-radius: 2px;
+            font-weight: 400;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .cta-button:hover {
+            background: var(--charcoal);
+            transform: translateY(-1px);
+        }
+
+        /* Section Styles */
+        .section {
+            padding: 6rem 0;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 200;
+            color: var(--primary-green);
+            margin-bottom: 1rem;
+        }
+
+        .section-subtitle {
+            font-size: 1.2rem;
+            color: var(--stone-gray);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Value Proposition */
+        .value-section {
+            background: var(--warm-beige);
+        }
+
+        .value-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+            margin-top: 3rem;
+        }
+
+        .value-item {
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .value-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--primary-green);
+            border-radius: 50%;
+            margin: 0 auto 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: white;
+        }
+
+        .value-item h3 {
+            font-size: 1.3rem;
+            font-weight: 400;
+            color: var(--charcoal);
+            margin-bottom: 1rem;
+        }
+
+        .value-item p {
+            color: var(--stone-gray);
+            line-height: 1.7;
+        }
+
+        /* Criteria Section */
+        .criteria-grid {
+            display: grid;
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .criteria-item {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 4px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+            border-left: 4px solid var(--primary-green);
+        }
+
+        .criteria-number {
+            font-size: 2rem;
+            font-weight: 200;
+            color: var(--sage-green);
+            margin-bottom: 1rem;
+        }
+
+        .criteria-title {
+            font-size: 1.4rem;
+            font-weight: 400;
+            color: var(--charcoal);
+            margin-bottom: 1rem;
+        }
+
+        .criteria-details {
+            color: var(--stone-gray);
+        }
+
+        .criteria-details ul {
+            list-style: none;
+            margin-top: 1rem;
+        }
+
+        .criteria-details li {
+            margin-bottom: 0.5rem;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .criteria-details li::before {
+            content: '•';
+            color: var(--primary-green);
+            position: absolute;
+            left: 0;
+        }
+
+        /* Contact Form */
+        .contact-section {
+            background: var(--primary-green);
+            color: white;
+        }
+
+        .contact-section .section-title {
+            color: white;
+        }
+
+        .contact-section .section-subtitle {
+            color: rgba(255,255,255,0.8);
+        }
+
+        .form-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 3rem;
+            border-radius: 4px;
+            margin-top: 3rem;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group.full-width {
+            grid-column: 1 / -1;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--charcoal);
+            font-weight: 400;
+            font-size: 0.95rem;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 1rem;
+            border: 1px solid #e1e1e1;
+            border-radius: 2px;
+            font-family: inherit;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+            background: var(--cream-white);
+        }
+
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: var(--primary-green);
+        }
+
+        textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .submit-button {
+            background: var(--primary-green);
+            color: white;
+            padding: 1rem 3rem;
+            border: none;
+            border-radius: 2px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: inherit;
+        }
+
+        .submit-button:hover {
+            background: var(--charcoal);
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--charcoal);
+            color: white;
+            padding: 3rem 0;
+            text-align: center;
+        }
+
+        .footer p {
+            color: rgba(255,255,255,0.7);
+            font-size: 0.9rem;
+        }
+
+        /* Mobile Optimizations */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero-container {
+                padding: 0 1rem;
+            }
+
+            .container {
+                padding: 0 1rem;
+            }
+
+            .section {
+                padding: 4rem 0;
+            }
+
+            .form-container {
+                padding: 2rem 1rem;
+                margin: 2rem 1rem 0;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Smooth scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-container">
+            <a href="#" class="logo">ReframeUrban™</a>
+            <ul class="nav-links">
+                <li><a href="#about">About</a></li>
+                <li><a href="#criteria">Criteria</a></li>
+                <li><a href="#apply">Apply</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-container">
+            <div class="hero-content">
+                <h1>ReframeUrban™</h1>
+                <div class="hero-subtitle">The Standard for Smarter Infill Development</div>
+                <p class="hero-description">
+                    A certification for urban infill housing projects that transform outdated, underutilized lots into high-performing, resilient, and human-centered living spaces.
+                </p>
+                <a href="#apply" class="cta-button">Apply for Certification</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Value Proposition -->
+    <section class="section value-section" id="about">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">This isn't gentrification.<br>This is regeneration — with accountability.</h2>
+                <p class="section-subtitle">
+                    ReframeUrban™ signals to cities, investors, and communities that a development isn't just new — it's smarter, safer, and built for the future.
+                </p>
+            </div>
+            
+            <div class="value-grid">
+                <div class="value-item fade-in">
+                    <div class="value-icon">🏛</div>
+                    <h3>City Confidence</h3>
+                    <p>Demonstrates adherence to rigorous standards that align with municipal planning goals and sustainability targets.</p>
+                </div>
+                <div class="value-item fade-in">
+                    <div class="value-icon">📈</div>
+                    <h3>Investor Assurance</h3>
+                    <p>Provides third-party validation of project quality, risk mitigation, and long-term value creation.</p>
+                </div>
+                <div class="value-item fade-in">
+                    <div class="value-icon">🤝</div>
+                    <h3>Community Trust</h3>
+                    <p>Establishes transparent standards for responsible development that benefits existing neighborhoods.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Criteria Section -->
+    <section class="section" id="criteria">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Eligibility Criteria</h2>
+                <p class="section-subtitle">
+                    To receive ReframeUrban™ certification, a project must meet all of the following conditions:
+                </p>
+            </div>
+
+            <div class="criteria-grid">
+                <div class="criteria-item fade-in">
+                    <div class="criteria-number">01</div>
+                    <h3 class="criteria-title">Legacy Lot Replacement</h3>
+                    <div class="criteria-details">
+                        <p>The original structure must be at least 50 years old at time of redevelopment.</p>
+                        <ul>
+                            <li>Applies to full teardowns, major gut rehabs, or conversions of obsolete structures</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="criteria-item fade-in">
+                    <div class="criteria-number">02</div>
+                    <h3 class="criteria-title">Urban Core Location</h3>
+                    <div class="criteria-details">
+                        <p>Property must be located within 3 miles of a major city center or designated transit-rich urban corridor.</p>
+                        <ul>
+                            <li>Designed to promote walkability, reduce sprawl, and reinforce urban density</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="criteria-item fade-in">
+                    <div class="criteria-number">03</div>
+                    <h3 class="criteria-title">Density Tripling Requirement</h3>
+                    <div class="criteria-details">
+                        <p>The number of dwellings on the lot must increase by at least 3x (e.g., 1 unit to 3+, 2 units to 6+, etc.).</p>
+                        <ul>
+                            <li>Encourages missing-middle typologies (triplexes, ADUs, small multifamily) over megablocks</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="criteria-item fade-in">
+                    <div class="criteria-number">04</div>
+                    <h3 class="criteria-title">Smart Energy and System Upgrades</h3>
+                    <div class="criteria-details">
+                        <p>The new development must show a minimum 30% reduction in energy use per unit, based on pre-existing conditions or local benchmarks.</p>
+                        <ul>
+                            <li>Smart thermostats</li>
+                            <li>Adaptive lighting</li>
+                            <li>Water usage tracking</li>
+                            <li>Solar integration or EV readiness</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="criteria-item fade-in">
+                    <div class="criteria-number">05</div>
+                    <h3 class="criteria-title">Environmental Health & Safety Remediation</h3>
+                    <div class="criteria-details">
+                        <p>All legacy material hazards must be fully removed or replaced, including:</p>
+                        <ul>
+                            <li>Lead paint and plumbing</li>
+                            <li>Aluminum electrical wiring</li>
+                            <li>Asbestos (all forms)</li>
+                            <li>Mold, rot, or moisture-related toxins</li>
+                        </ul>
+                        <p style="margin-top: 1rem;">Documentation of remediation and rebuild must meet HUD, EPA, and local code standards.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact/Application Form -->
+    <section class="section contact-section" id="apply">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Apply for ReframeUrban™ Certification</h2>
+                <p class="section-subtitle">
+                    Ready to validate your infill development project? Submit your application below and our team will review your project against our certification standards.
+                </p>
+            </div>
+
+            <div class="form-container">
+                <form id="certificationForm">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="companyName">Company Name *</label>
+                            <input type="text" id="companyName" name="companyName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="contactName">Primary Contact Name *</label>
+                            <input type="text" id="contactName" name="contactName" required>
+                        </div>
+                    </div>
+
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="email">Email Address *</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Phone Number</label>
+                            <input type="tel" id="phone" name="phone">
+                        </div>
+                    </div>
+
+                    <div class="form-group full-width">
+                        <label for="projectName">Project Name *</label>
+                        <input type="text" id="projectName" name="projectName" required>
+                    </div>
+
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="projectAddress">Project Address *</label>
+                            <input type="text" id="projectAddress" name="projectAddress" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="projectStage">Project Stage *</label>
+                            <select id="projectStage" name="projectStage" required>
+                                <option value="">Select project stage</option>
+                                <option value="planning">Planning/Design</option>
+                                <option value="permitting">Permitting</option>
+                                <option value="construction">Under Construction</option>
+                                <option value="completed">Completed</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="originalUnits">Original Number of Units</label>
+                            <input type="number" id="originalUnits" name="originalUnits" min="1">
+                        </div>
+                        <div class="form-group">
+                            <label for="proposedUnits">Proposed/Built Number of Units</label>
+                            <input type="number" id="proposedUnits" name="proposedUnits" min="1">
+                        </div>
+                    </div>
+
+                    <div class="form-group full-width">
+                        <label for="projectDescription">Project Description *</label>
+                        <textarea id="projectDescription" name="projectDescription" required placeholder="Please describe your project, including how it meets the ReframeUrban™ criteria..."></textarea>
+                    </div>
+
+                    <div class="form-group full-width">
+                        <label for="additionalInfo">Additional Information</label>
+                        <textarea id="additionalInfo" name="additionalInfo" placeholder="Any additional details about sustainability features, community benefits, or other relevant information..."></textarea>
+                    </div>
+
+                    <button type="submit" class="submit-button">Submit Application</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 ReframeUrban™. All rights reserved. | The Standard for Smarter Infill Development</p>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Intersection Observer for fade-in animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Form submission handling
+        document.getElementById('certificationForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Simple form validation feedback
+            const submitButton = this.querySelector('.submit-button');
+            const originalText = submitButton.textContent;
+            
+            submitButton.textContent = 'Submitting...';
+            submitButton.disabled = true;
+            
+            // Simulate form submission
+            setTimeout(() => {
+                alert('Thank you for your application! Our team will review your project and contact you within 5-7 business days.');
+                this.reset();
+                submitButton.textContent = originalText;
+                submitButton.disabled = false;
+            }, 1500);
+        });
+
+        // Navigation background on scroll
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('.nav');
+            if (window.scrollY > 100) {
+                nav.style.background = 'rgba(254, 253, 251, 0.98)';
+            } else {
+                nav.style.background = 'rgba(254, 253, 251, 0.95)';
+            }
+        });
+    </script>
+</body>
+</html>
